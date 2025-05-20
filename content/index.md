@@ -1,6 +1,10 @@
 ---
-title: Welcome to Quartz
+title: Phoenix Wiki
 ---
 
-This is a blank Quartz installation.
-See the [documentation](https://quartz.jzhao.xyz) for how to get started.
+Это вики описывающая правила и подразумеваемый лор системы Phoenix.
+
+Самый простой способ использования этой вики — руководства. Достаточно открыть руководство и, в процессе чтения, переходить по ссылкам для прояснения непонятных терминов.
+
+[[Создание персонажа]]
+[[Прокачка персонажа]]
