@@ -45,7 +45,7 @@ const config: QuartzConfig = {
           gray: "#646464",
           darkgray: "#c4b8ad",
           dark: "#FAEBD7",
-          secondary: "#fd7119",
+          secondary: "#fc8b48",
           tertiary: "#b14501",
           highlight: "#342315",
           textHighlight: "rgba(246,237,90,0.53)",
