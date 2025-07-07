@@ -64,19 +64,20 @@ export const defaultListPageLayout: PageLayout = {
     }),
     Component.Explorer({
 		sortFn: (a, b) => {
-			if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
-			  return a.displayName.localeCompare(b.displayName, undefined, {
-				numeric: true,
-				sensitivity: "base",
-			  })
-			}
-		 
-			if (!a.isFolder && b.isFolder) {
-			  return 1
-			} else {
-			  return -1
-			}
-		},
+		  const nameA = a.displayName;
+		  const nameB = b.displayName;
+
+		  // Folders before files
+		  if (a.isFolder !== b.isFolder) {
+			return a.isFolder ? -1 : 1;
+		  }
+
+		  // Sort alphabetically with numeric order and case-insensitive
+		  return nameA.localeCompare(nameB, undefined, {
+			numeric: true,
+			sensitivity: 'base'
+		  });
+		}
 		order: ["sort"],
 	}),
   ],
