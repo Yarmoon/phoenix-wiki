@@ -62,7 +62,14 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+		title: "Explorer", // title of the explorer component
+		folderClickBehavior: "collapse", 
+		sortFn: ...,
+		filterFn: ...,
+		mapFn: ...,
+		order: ["filter", "map", "sort"],
+	}),
   ],
   right: [],
 }
