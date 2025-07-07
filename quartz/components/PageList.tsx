@@ -6,6 +6,36 @@ import { GlobalConfiguration } from "../cfg"
 
 export type SortFn = (f1: QuartzPluginData, f2: QuartzPluginData) => number
 
+export function byNumericNameFolderFirst(): SortFn {
+  return (f1, f2) => {
+    const f1IsFolder = isFolderPath(f1.slug ?? "")
+    const f2IsFolder = isFolderPath(f2.slug ?? "")
+    if (f1IsFolder && !f2IsFolder) return -1
+    if (!f1IsFolder && f2IsFolder) return 1
+
+    const getLeadingNumber = (str: string): number => {
+      const match = str.match(/(^|\/)(\d+)/)
+      return match ? parseInt(match[2], 10) : Number.POSITIVE_INFINITY
+    }
+
+    const titleA = f1.frontmatter?.title ?? ""
+    const titleB = f2.frontmatter?.title ?? ""
+
+    const numA = getLeadingNumber(titleA.toLowerCase())
+    const numB = getLeadingNumber(titleB.toLowerCase())
+
+    if (numA !== numB) {
+      return numA - numB
+    }
+
+    return titleA.localeCompare(titleB, undefined, {
+      numeric: true,
+      sensitivity: "base",
+    })
+  }
+}
+
+
 export function byDateAndAlphabetical(cfg: GlobalConfiguration): SortFn {
   return (f1, f2) => {
     // Sort by date/alphabetical
@@ -58,7 +88,7 @@ type Props = {
 } & QuartzComponentProps
 
 export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
-  const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
+  const sorter = sort ?? byNumericNameFolderFirst()
   let list = allFiles.sort(sorter)
   if (limit) {
     list = list.slice(0, limit)
